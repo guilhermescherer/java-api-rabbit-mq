@@ -1,13 +1,14 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
-
+!**/src/main/**/target/
+!**/src/test/**/target/
 !**/employee/src/main/**/target/
 !**/employee/src/test/**/target/
 !**/consumer/src/main/**/target/
 !**/consumer/src/test/**/target/
 
 ### IntelliJ IDEA ###
-/.idea/
+/.idea/*
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
