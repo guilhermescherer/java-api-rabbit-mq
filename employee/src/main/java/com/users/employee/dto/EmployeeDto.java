@@ -1,7 +1,6 @@
 package com.users.employee.dto;
 
 import com.users.employee.model.Employee;
-import org.springframework.beans.BeanUtils;
 
 public class EmployeeDto {
 

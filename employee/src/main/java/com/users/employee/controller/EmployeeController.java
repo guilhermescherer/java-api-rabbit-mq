@@ -29,10 +29,12 @@ public class EmployeeController {
 	public ResponseEntity<EmployeeDto> createEmployee(@RequestBody EmployeeData employeeData, UriComponentsBuilder uriBuilder) {
 		Employee employee = employeeService.createEmployee(employeeData);
 
-		rabbitTemplate.convertAndSend("employee.name", employee);
+		EmployeeDto employeeDto = new EmployeeDto(employee);
+
+		rabbitTemplate.convertAndSend("employee.name", employeeDto);
 
 		URI uri = uriBuilder.path("/employee/{id}").buildAndExpand(employee.getId()).toUri();
-		return ResponseEntity.created(uri).body(new EmployeeDto(employee));
+		return ResponseEntity.created(uri).body(employeeDto);
 	}
 
 	@GetMapping("/{id}")
