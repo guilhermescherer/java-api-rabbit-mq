@@ -31,7 +31,7 @@ public class EmployeeController {
 
 		EmployeeDto employeeDto = new EmployeeDto(employee);
 
-		rabbitTemplate.convertAndSend("employee.name", employeeDto);
+		rabbitTemplate.convertAndSend("employee.ex", "", employeeDto);
 
 		URI uri = uriBuilder.path("/employee/{id}").buildAndExpand(employee.getId()).toUri();
 		return ResponseEntity.created(uri).body(employeeDto);

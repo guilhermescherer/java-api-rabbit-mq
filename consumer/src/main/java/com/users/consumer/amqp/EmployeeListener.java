@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeListener {
 
-    @RabbitListener(queues = "employee.name")
+    @RabbitListener(queues = "employee.details")
     public void getMessage(EmployeeDto employeeDto) {
         System.out.println(employeeDto.toString());
     }
