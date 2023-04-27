@@ -27,7 +27,14 @@ public class ConsumerAMQPConfiguration {
 
     @Bean
     public Queue queueDetails() {
-        return QueueBuilder.nonDurable("employee.details").build();
+        return QueueBuilder.nonDurable("employee.details")
+                .deadLetterExchange("employee.dlx")
+                .build();
+    }
+
+    @Bean
+    public Queue queueDlqDetails() {
+        return QueueBuilder.nonDurable("employee.details-dql").build();
     }
 
     @Bean
@@ -37,8 +44,19 @@ public class ConsumerAMQPConfiguration {
     }
 
     @Bean
-    public Binding bindEmployee(FanoutExchange fanoutExchange) {
-        return BindingBuilder.bind(queueDetails()).to(fanoutExchange);
+    public FanoutExchange deadLetterExchange() {
+        return ExchangeBuilder.fanoutExchange("employee.dlx")
+                .build();
+    }
+
+    @Bean
+    public Binding bindEmployee() {
+        return BindingBuilder.bind(queueDetails()).to(fanoutExchange());
+    }
+
+    @Bean
+    public Binding bindDlxEmployee() {
+        return BindingBuilder.bind(queueDlqDetails()).to(deadLetterExchange());
     }
 
     @Bean
